@@ -12,13 +12,11 @@
     <title>EnviroBeatz</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Bootstrap Toggle -->
-    <link href="css/bootstrap-toggle.css" rel="stylesheet">
-
+    <link href="{{ url_for('static', filename='css/bootstrap-toggle.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/simple-sidebar.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -55,7 +53,7 @@
                     <div class="col-lg-12">
                         <h1>EnviroBeatz</h1>
                         <p>Insert SoundCloud here.</p>
-                        
+
                     </div>
                     <div class="col-lg-12">
                         <p>Toggle Button: </p>
@@ -70,13 +68,11 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="js/jquery-3.1.1.min.js"></script>
-
+    <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js') }}"></script>
     <!-- Toggle -->
-    <script src="js/bootstrap-toggle.min.js"></script>
-
+    <script src="{{ url_for('static', filename='js/bootstrap-toggle.min.js') }}"></script>
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 
     <!-- Menu Toggle Script -->
     <script>
