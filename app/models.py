@@ -34,15 +34,15 @@ class Environment(db.Model):
 	
 class SongTemperature(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	song_id = db.Column(db.Integer, db.foreign_key('song.id')
+	song_id = db.Column(db.Integer, db.ForeignKey('song.id'))
 	temp_min = db.Column(db.Float)
 	temp_max = db.Column(db.Float)
 	
 class SongLight(db.Model):
-	id = db.Column(db.Integer, primary_key = True)
-	song_id = db.Column(db.Integer, db.foreign_key('song.id')
-	light_min = db.Column(db.Float)
-	light_max = db.Column(db.Float)
+    id = db.Column(db.Integer, primary_key = True)
+    song_id = db.Column(db.Integer, db.ForeignKey('song.id'))
+    light_min = db.Column(db.Float)
+    light_max = db.Column(db.Float)
 	
     
 
