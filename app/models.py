@@ -13,3 +13,20 @@ class Mood(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Columns(db.String(55))
     
+class Environment(bd.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	gyro_x = db.Column(db.Float)
+	gyro_y = db.Column(db.Float)
+	gyro_z = db.Column(db.Float)
+	sensor_temp = db.Column(db.Float)
+	room_temp = db.Column(db.Float)
+	compass_x = db.Column(db.Float)
+	compass_y = db.Column(db.Float)
+	compass_z = db.Column(db.Float)
+	accel_x = db.Column(db.Float)
+	accel_y = db.Column(db.Float)
+	accel_z = db.Column(db.Float)
+	air_pressure = db.Column(db.Float)
+	light = db.Column(db.Float)
+	
+    
