@@ -7,12 +7,14 @@ class Song(db.Model):
     song_title = db.Column(db.String(55))
     url = db.Column(db.String(55))
     moods = db.relationship('Mood', backref='song', lazy='dynamic')
-    mood_id = db.Column(db.Integer, db.foreign_key('mood.id'))
+    mood_id = db.Column(db.Integer, db.ForeignKey('mood.id'))
 
 class Mood(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Columns(db.String(55))
-    
+
+    name = db.Column(db.String(55))
+
+
 class Environment(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	gyro_x = db.Column(db.Float)
@@ -28,6 +30,7 @@ class Environment(db.Model):
 	accel_z = db.Column(db.Float)
 	air_pressure = db.Column(db.Float)
 	light = db.Column(db.Float)
+
 	
 class SongTemperature(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
@@ -42,3 +45,5 @@ class SongLight(db.Model):
 	light_max = db.Column(db.Float)
 	
     
+
+
