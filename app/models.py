@@ -13,7 +13,7 @@ class Mood(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Columns(db.String(55))
     
-class Environment(bd.Model):
+class Environment(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	gyro_x = db.Column(db.Float)
 	gyro_y = db.Column(db.Float)
@@ -28,5 +28,17 @@ class Environment(bd.Model):
 	accel_z = db.Column(db.Float)
 	air_pressure = db.Column(db.Float)
 	light = db.Column(db.Float)
+	
+class SongTemperature(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	song_id = db.Column(db.Integer, db.foreign_key('song.id')
+	temp_min = db.Column(db.Float)
+	temp_max = db.Column(db.Float)
+	
+class SongLight(db.Model):
+	id = db.Column(db.Integer, primary_key = True)
+	song_id = db.Column(db.Integer, db.foreign_key('song.id')
+	light_min = db.Column(db.Float)
+	light_max = db.Column(db.Float)
 	
     
