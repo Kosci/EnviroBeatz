@@ -1,26 +1,22 @@
 # third-party imports
 from flask import Flask
-from flask_bootstrap import Bootstrap
-from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 # local imports
 from config import app_config
 
-db = SQLAlchemy()
+app = Flask(__name__)
+db = SQLAlchemy(app)
 
-def create_app(config_name):
-    app = Flask(__name__)
-    app.config.from_object(app_config[config_name])
-    app.config.from_pyfile('config.py')
-
-    Bootstrap(app)
-    db.init_app(app)
-    migrate = Migrate(app, db)
-
+def create_app():
     from app import models
 
     from .home import home as home_blueprint
     app.register_blueprint(home_blueprint)
+
+    from .home import cloud
+
+    db.create_all()
+    db.session.commit()
 
     return app

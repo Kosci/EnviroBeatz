@@ -11,6 +11,8 @@ def get_data():
     # convert HTTP bytes to string with decode('utf8')
     # set as dictionary
     data_dictionary = json.loads(response.decode('utf8'))
+    if data_dictionary['with'] == 404:
+        return []
 
     # store the 5 latest cached sets of data in a list
     cached_data = list()
@@ -23,6 +25,7 @@ def get_data():
 def store_data():
     data = list()
     data = get_data()
+
     for each in data:
         environment = Environment(gyro_x = each['gyro_x'],
                                   gyro_y = each['gyro_y'],
@@ -40,4 +43,4 @@ def store_data():
                               )
 
         db.session.add(environment)
-        db.session.commit
+        db.session.commit()

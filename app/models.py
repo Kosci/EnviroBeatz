@@ -1,19 +1,16 @@
 from app import db
 
-# Models will go here once written
-
 class Song(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     song_title = db.Column(db.String(55))
     url = db.Column(db.String(55))
-    moods = db.relationship('Mood', backref='song', lazy='dynamic')
+    moods = db.relationship('Mood', backref='song')
     mood_id = db.Column(db.Integer, db.ForeignKey('mood.id'))
 
 class Mood(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     name = db.Column(db.String(55))
-
 
 class Environment(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -31,19 +28,15 @@ class Environment(db.Model):
 	air_pressure = db.Column(db.Float)
 	light = db.Column(db.Float)
 
-	
 class SongTemperature(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	song_id = db.Column(db.Integer, db.ForeignKey('song.id'))
 	temp_min = db.Column(db.Float)
 	temp_max = db.Column(db.Float)
-	
+
 class SongLight(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     song_id = db.Column(db.Integer, db.ForeignKey('song.id'))
     light_min = db.Column(db.Float)
     light_max = db.Column(db.Float)
-	
-    
-
 
