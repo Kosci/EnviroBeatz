@@ -3,20 +3,18 @@
         <h2>Add Song</h2>
     </div>
     <div class="modal-body">
-        <form method="POST" class="form form-horizontal">
+        <form method="POST" action="/envirobeatz/api/v1.0/songs/add" class="form form-horizontal">
             <div class="form-group">
                 <label class="col-sm-4">URL: </label>
-                <input type="text" class="col-sm-4"></input>
+                <input type="text" name="songUrl" class="col-sm-4"></input>
             </div>
             <div class="form-group">
-                <label class="col-md-4">Light: </label>
-                <input type="radio" class="col-md-2">Light</input>
-                <input type="radio" class="col-md-2">Dark</input>
+                <label class="col-md-4">Mood: </label>
+                <input type="text" name="moodId" class="col-md-4"></input>
             </div>
             <div class="form-group">
-                <label class="col-md-4">Temperature: </label>
-                <p class="col-md-4">Insert Slider here</p>
-            </div>
+                <label class="col-md-4">Song Title: </label>
+                <input type="text" name="songTitle" class="col-md-4"></input>
             <div>
                 <button class="button" type="submit">Submit</button>
             </div>

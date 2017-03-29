@@ -1,5 +1,7 @@
-from flask import jsonify, abort, make_response
-
+from flask import jsonify, abort, make_response, request, redirect
+from app.models import Song
+from app import db
+from flask_sqlalchemy import SQLAlchemy
 from . import home
 
 # Working with mock data until service can use real data from db
@@ -32,3 +34,10 @@ def get_song(song_id):
 @home.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error' : 'Not found'}), 404)
+
+@home.route(baseURL + 'songs/add', methods=['POST'])
+def add_song():
+    song = Song(url=request.form['songUrl'], song_title=request.form['songTitle'], mood_id=request.form['moodId'])
+    db.session.add(song)
+    db.session.commit()
+    return make_response(redirect('/'))
