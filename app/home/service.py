@@ -1,5 +1,6 @@
 from flask import jsonify, abort, make_response
-
+import soundcloud
+from app import clientid
 from . import home
 
 # Working with mock data until service can use real data from db
@@ -20,6 +21,26 @@ baseURL = '/envirobeatz/api/v1.0/'
 
 @home.route(baseURL + 'songs', methods=['GET'])
 def get_songs():
+    # create client object
+    client = soundcloud.Client(access_token=clientid)
+
+    #creat list of track ids
+    tracks = list()
+    for song in songs:
+        tracks.append(song['id'])
+
+    #map tracks to dictionary
+    tracks = map(lambda id: dict(id=id), tracks)
+
+    #create playlist
+    client.post('/playlists', playlist{
+        'title': 'Envirobeatz playlist',
+        'sharing': 'public',
+        'tracks': tracks,
+    })
+
+    #get created playlist
+    playlist = client.get('/me/playlists')[5]
     return jsonify({'songs' : songs})
 
 @home.route(baseURL + 'songs/<string:song_id>', methods=['GET'])
