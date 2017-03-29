@@ -45,3 +45,14 @@ def averageEnvironmentData():
                         air_pressure = air_pressure / 10,
                         light = light / 10
                     )
+
+					
+def getGyroData():
+	gyros = {}
+	data = Environment.query.order_by(-Environment.id.desc()).limit(4)
+	for environment in data:
+		gyros["x"].append(environment.gyro_x)
+		gyros["y"].append(environment.gyro_y)
+		gyros["z"].append(environment.gyro_z)
+	return gyros
+	
