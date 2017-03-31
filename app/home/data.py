@@ -55,4 +55,3 @@ def getGyroData():
 		gyros["y"].append(environment.gyro_y)
 		gyros["z"].append(environment.gyro_z)
 	return gyros
-	
