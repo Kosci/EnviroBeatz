@@ -1,6 +1,4 @@
 from flask import jsonify, abort, make_response
-import soundcloud
-from app import clientid
 from flask import jsonify, abort, make_response, request, redirect
 from app.models import Song
 from app import db
@@ -10,14 +8,14 @@ from . import home
 # Working with mock data until service can use real data from db
 songs = [
     {
-        'id' : u'301361791',
-        'title' : u'Deep In The Night (Muzzy Remix)',
-        'artist' : u'Pegboard Nerds, Snails, Muzzy'
+        'url' : u'https://soundcloud.com/disciple/calamari',
+        'title' : u'Calamari',
+        'artist' : u'Dubloadz, Barely Alive'
     },
     {
-        'id' : u'229562445',
-        'title' : u"It's Me",
-        'artist' : u'Spag Heddy'
+        'url' : u'https://soundcloud.com/contrvbvnd/contrvbvnd-m2-original-mix-1',
+        'title' : u"M2",
+        'artist' : u'Contrvbvnd'
     }
 ]
 
@@ -25,27 +23,12 @@ baseURL = '/envirobeatz/api/v1.0/'
 
 @home.route(baseURL + 'songs', methods=['GET'])
 def get_songs():
-    # create client object
-    client = soundcloud.Client(access_token=clientid)
+    urls = list()
 
-    #creat list of track ids
-    tracks = list()
     for song in songs:
-        tracks.append(song['id'])
+        urls.append(song['url'])
 
-    #map tracks to dictionary
-    tracks = map(lambda id: dict(id=id), tracks)
-
-    #create playlist
-    client.post('/playlists', playlist{
-        'title': 'Envirobeatz playlist',
-        'sharing': 'public',
-        'tracks': tracks,
-    })
-
-    #get created playlist
-    playlist = client.get('/me/playlists')[5]
-    return jsonify({'songs' : songs})
+    return jsonify({'songs' : urls})
 
 @home.route(baseURL + 'songs/<string:song_id>', methods=['GET'])
 def get_song(song_id):
