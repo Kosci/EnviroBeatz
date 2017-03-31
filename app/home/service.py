@@ -3,6 +3,7 @@ from app.models import Song
 from app import db
 from flask_sqlalchemy import SQLAlchemy
 from . import home
+from app.home import combineData
 
 # Working with mock data until service can use real data from db
 songs = [
@@ -41,3 +42,8 @@ def add_song():
     db.session.add(song)
     db.session.commit()
     return make_response(redirect('/'))
+
+@home.route(baseURL + 'songs/random', methods=['GET'])
+def get_random():
+    return combineData.combine()['url']
+    
