@@ -1,28 +1,44 @@
-<div class="modal-dialog">
+<div ng-app="enviroBeatzApp" ng-controller="songController" class="modal-dialog">
     <div class="modal-header">
         <h2>Add Song</h2>
     </div>
     <div class="modal-body">
-        <form method="POST" action="/envirobeatz/api/v1.0/songs/add" class="form form-horizontal">
+        <form method="POST" ng-submit="submit()" class="form form-horizontal">
             <div class="form-group">
                 <label class="col-sm-4">URL: </label>
-                <input type="text" name="songUrl" class="col-sm-4"></input>
+                <input type="text" ng-model="songUrl" name="songUrl" class="col-sm-4"></input>
             </div>
             <div class="form-group">
-                <label class="col-md-4">Mood: </label>
-                <input type="text" name="moodId" class="col-md-4"></input>
+                <label class="col-sm-4">Input: </label>
+                <select class="col-sm-4" ng-change="onTypeChange()" ng-model="songType">
+                    <option value="0">Light</option>
+                    <option value="1">Temperature</option>
+                </select>
+            </div>
+            <div class="form-group" id="valueContainer">
+                <label class="col-sm-4">Value: </label>
+
             </div>
             <div class="form-group">
-                <label class="col-md-4">Song Title: </label>
-                <input type="text" name="songTitle" class="col-md-4"></input>
-            <div>
-                <button class="button" type="submit">Submit</button>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+            <div hidden id="hiddenContainer">
+                <div class="col-sm-4" id="lightOptions">
+                    <input type="radio" ng-model="songLight" value="1">On</input>
+                    <input type="radio" ng-model="songLight" value="0">Off</input>
+                </div>
+                <div class="col-sm-4" id="tempOptions">
+                    <input type="range" ng-model="temp_min" value="50" min="0" max="100"/>
+                    <input type="range" ng-model="temp_max" value="50" min="0" max="100"/>
+                </div>
             </div>
         </form>
     </div>
     <div class="modal-footer">
-
     </div>
-
-    </form>
 </div>
+<!-- Angular -->
+<script src="{{ url_for('static', filename='js/angular.min.js') }}"></script>    
+
+<script src="{{ url_for('static', filename='js/songController.js') }}"></script>    
+
