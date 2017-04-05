@@ -44,12 +44,24 @@ def not_found(error):
 
 @home.route(baseURL + 'songs/add', methods=['POST'])
 def add_song():
-    song = Song(url=request.form['songUrl'], song_title=request.form['songTitle'], mood_id=request.form['moodId'])
+    songUrl = request.form['songUrl']
+    songType = request.form['songType']
+    eMin = request.form['min']
+    eMax = request.form['max']
+
+    song = Song(url=songUrl)
     db.session.add(song)
+    db.session.flush()
+
+    if songType.lower() == 'temperature':
+        envSong = SongTemperature(song_id=song.id, temp_min=eMin, temp_max=eMax)
+    else:
+        envSong = SongLight(song_id=song.id, light_min=eMin, light_max=eMax)
+
+    db.session.add(envSong)
     db.session.commit()
     return make_response(redirect('/'))
 
 @home.route(baseURL + 'songs/random', methods=['GET'])
 def get_random():
     return combineData.combine()['url']
-    
