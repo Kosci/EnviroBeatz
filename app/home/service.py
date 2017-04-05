@@ -31,6 +31,11 @@ def get_songs():
 
     return jsonify({'songs' : urls})
 
+
+@home.route(baseURL + 'songs/any', methods=['GET'])
+def get_any_song():
+    return Song.query.first()
+
 @home.route(baseURL + 'songs/<string:song_id>', methods=['GET'])
 def get_song(song_id):
     song = [song for song in songs if song['id'] == song_id]
