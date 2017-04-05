@@ -1,6 +1,6 @@
 from flask import jsonify, abort, make_response
 from flask import jsonify, abort, make_response, request, redirect
-from app.models import Song
+from app.models import Song, SongLight, SongTemperature
 from app import db
 from flask_sqlalchemy import SQLAlchemy
 from . import home
@@ -44,10 +44,16 @@ def not_found(error):
 
 @home.route(baseURL + 'songs/add', methods=['POST'])
 def add_song():
-    songUrl = request.form['songUrl']
-    songType = request.form['songType']
-    eMin = request.form['min']
-    eMax = request.form['max']
+    content = request.json
+
+    songUrl = content['url']
+    songType = content['type']
+    eMin = content['min']
+    eMax = content['max']
+    #songUrl = request.form['songUrl']
+    #songType = request.form['songType']
+    #eMin = request.form['min']
+    #eMax = request.form['max']
 
     song = Song(url=songUrl)
     db.session.add(song)
@@ -60,6 +66,7 @@ def add_song():
 
     db.session.add(envSong)
     db.session.commit()
+
     return make_response(redirect('/'))
 
 @home.route(baseURL + 'songs/random', methods=['GET'])
