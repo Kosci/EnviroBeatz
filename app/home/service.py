@@ -34,7 +34,7 @@ def get_songs():
 
 @home.route(baseURL + 'songs/any', methods=['GET'])
 def get_any_song():
-    return Song.query.first()
+    return jsonify(Song.query.first().url)
 
 @home.route(baseURL + 'songs/<string:song_id>', methods=['GET'])
 def get_song(song_id):
