@@ -1,4 +1,3 @@
-from flask import jsonify, abort, make_response
 from flask import jsonify, abort, make_response, request, redirect
 from app.models import Song, SongLight, SongTemperature
 from app import db
@@ -62,7 +61,7 @@ def add_song():
 
     song = Song(url=songUrl)
     db.session.add(song)
-    db.session.flush()
+    db.session.commit()
 
     if songType.lower() == 'temperature':
         envSong = SongTemperature(song_id=song.id, temp_min=eMin, temp_max=eMax)
@@ -76,4 +75,4 @@ def add_song():
 
 @home.route(baseURL + 'songs/random', methods=['GET'])
 def get_random():
-    return combineData.combine()['url']
+    return combineData.combine()

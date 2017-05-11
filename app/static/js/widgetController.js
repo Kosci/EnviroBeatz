@@ -1,38 +1,26 @@
+var src = "https://w.soundcloud.com/player/?url=";
+var srcEnd = "&auto_play=falsehide_related=falseshow_comments=trueshow_user=trueshow_reposts=falsevisual=true";
+
 function playsongs(){
+  var csrf_token = "{{ csrf_token() }}";
   $.ajax({
-    url: "http://127.0.0.1:5000/envirobeatz/api/v1.0/songs", //THIS NEEDS TO CHANGE FOR PROD
+    beforeSend: function(xhr, settings) {
+      if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+        xhr.setRequestHeader("Access-Control-Allow-Origin", csrf_token);
+      }
+    },
+    url: "http://localhost:5000/envirobeatz/api/v1.0/songs/random",
     type: "GET",
     dataType: "json",
     success: function(result){
-      ToneDenReady = window.ToneDenReady || [];
-      ToneDenReady.push(function() {
-          // Modify the dom and urls parameters to position
-          // your player and select tracks/sets/artists to play.
-          ToneDen.configure({
-              soundcloudConsumerKey: 'b7966d22e02437e5d5dcce50cd95ce8d'
-          });
-          ToneDen.player.create({
-            dom: '#player',
-            urls: result.songs,
-            single: false,
-            skin: 'dark',
-            visualizerType: 'bars',
-            keyboardEvents: true
-          });
-      });
+      $("#songPlayer").attr("src", src + result + srcEnd);
+      console.log("refreshed");
     }
   })
 }
 
-$(function(){
-  var script = document.createElement("script");
+$(document).ready(function(){
+  setInterval(playsongs, 10000);
+  // playsongs();
+});
 
-  script.type = "text/javascript";
-  script.async = true;
-  script.src = "//sd.toneden.io/production/v2/toneden.loader.js";
-
-  var entry = document.getElementsByTagName("script")[0];
-  entry.parentNode.insertBefore(script, entry);
-  playsongs();
-  $(".tdicon-td_logo").remove();
-}());

@@ -1,11 +1,12 @@
+from flask import jsonify
 from app.models import SongLight, Song
-from app.home import data
+from app.home import data, cloud
 
 def getNextSong():
+    cloud.store_data();
     avgEnv = data.averageEnvironmentData()
-    songLight = SongLight.query.filter(
-        SongLight.light_max > avgEnv.light and SongLight.light_min < avgEnv.light
-    ).first()
+    print(avgEnv.light)
+    songLight = SongLight.query.filter(SongLight.light_max > avgEnv.light).filter(SongLight.light_min < avgEnv.light).first()
 
-    song = Song.query.filter_by(id=SongLight.song_id)
+    song = jsonify(Song.query.filter_by(id=songLight.song_id).first().url)
     return song
