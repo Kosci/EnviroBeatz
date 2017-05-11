@@ -4,6 +4,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 # local imports
 from config import app_config
+import os
+
+basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
@@ -21,5 +24,14 @@ def create_app():
 
     db.create_all()
     db.session.commit()
+
+    from app.models import Song, SongLight, SongTemperature
+
+    from sqlalchemy.sql import table, column, select, update, insert
+    i = insert(Song)
+    i = i.values({"url": "https://soundcloud.com/jd4d/kizzik-mind-blown"})
+    db.session.execute(i)
+    db.session.commit()
+    print(Song.query.first());
 
     return app
