@@ -28,10 +28,5 @@ def create_app():
     from app.models import Song, SongLight, SongTemperature
 
     from sqlalchemy.sql import table, column, select, update, insert
-    i = insert(Song)
-    i = i.values({"url": "https://soundcloud.com/jd4d/kizzik-mind-blown"})
-    db.session.execute(i)
-    db.session.commit()
-    print(Song.query.first());
 
     return app
